@@ -1,0 +1,83 @@
+body {
+    background-color: #7bbafa; /* Couleur claire pour le fond */
+    color: #333; /* Texte principal */
+    font-family: 'Didact Gothic', sans-serif; /* Police moderne */
+  }
+  
+  h1 {
+    color: #000000d0; /* Bleu Bootstrap pour le titre */
+    font-family: 'Didact Gothic', sans-serif; /* Police moderne */
+  }
+  
+  .list-group-item {
+    background-color: #ffff92; /* Fond blanc pour les tâches */
+  }
+  
+  .didact-gothic-regular {
+    font-family: "Didact Gothic", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+/* Ajoute un léger effet d'ombre sur chaque tâche */
+.list-group-item {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  /* Agrandir légèrement la tâche au survol */
+  .list-group-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Personnaliser le bouton "Ajouter" */
+  #addTaskBtn {
+    background-color: #ed2a95; 
+    border-color: #ed2a95;
+    transition: background-color 0.3s ease;
+  }
+  
+  #addTaskBtn:hover {
+    background-color: #ed2a95;
+  }
+  
+  /* Personnaliser le bouton "Supprimer" */
+  .btn-danger {
+    background-color: #ed2a95; 
+    border-color: #ed2a95;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-danger:hover {
+    background-color: #0627ce;
+    border-color: #7bbafa;
+  }
+
+  /* Tâches terminées : style barré et couleur grisée */
+.text-decoration-line-through {
+    color: #aaa;
+    font-family: 'Didact Gothic', sans-serif; /* Police moderne */;
+  }
+
+/* Apparition douce des tâches */
+.list-group-item {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .list-group-item.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Disparition douce des tâches */
+  .list-group-item.hide {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
