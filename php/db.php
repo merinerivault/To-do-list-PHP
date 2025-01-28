@@ -1,22 +1,16 @@
 <?php
-// Connexion à la base SQL pour les tâches
-$dsn = "mysql:host=localhost;dbname=to-do-list;charset=utf8mb4";
-$username = "root";
-$password = "";
-$options = [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-];
+require 'vendor/autoload.php'; // Bibliothèque MongoDB
 
-try {
-    $pdo = new PDO($dsn, $username, $password, $options);
-} catch (PDOException $e) {
-    die("Erreur de connexion : " . $e->getMessage());
-}
-
-// Connexion à la base NoSQL (MongoDB pour les utilisateurs)
-require 'vendor/autoload.php'; // Composer nécessaire
+// Connexion MongoDB
 $mongoClient = new MongoDB\Client("mongodb://localhost:27017");
-$usersCollection = $mongoClient->todo_app->users;
+
+// Connexion MySQL
+try {
+    $pdo = new PDO('mysql:host=localhost;dbname=to-do-list', 'root', '');
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Erreur de connexion MySQL : " . $e->getMessage());
+}
 ?>
+
 

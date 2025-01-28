@@ -199,6 +199,108 @@ document.addEventListener('DOMContentLoaded', () => {
     taskInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') addTask();
     });
+// Gestion des utilisateurs : Inscription, Connexion, Déconnexion
+async function register(username, password) {
+    try {
+        const response = await fetch('php/auth.php?action=register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password }),
+        });
+        const result = await response.json();
+        alert(result.message);
+        return result.success;
+    } catch (error) {
+        console.error('Erreur lors de l\'inscription :', error);
+    }
+}
+
+async function login(username, password) {
+    try {
+        const response = await fetch('php/auth.php?action=login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password }),
+        });
+        const result = await response.json();
+        alert(result.message);
+        return result.success;
+    } catch (error) {
+        console.error('Erreur lors de la connexion :', error);
+    }
+}
+
+async function logout() {
+    try {
+        const response = await fetch('php/auth.php?action=logout');
+        const result = await response.json();
+        alert(result.message);
+    } catch (error) {
+        console.error('Erreur lors de la déconnexion :', error);
+    }
+}
+// Charger les tâches depuis le backend
+async function loadTasksFromBackend() {
+    try {
+        const response = await fetch('php/tasks.php?action=read');
+        const tasks = await response.json();
+
+        taskList.innerHTML = ''; // Vider la liste avant de la remplir
+        tasks.forEach(task => {
+            const li = createTaskElement(task.text, task.completed);
+            taskList.appendChild(li);
+            setTimeout(() => li.classList.add('show'), 10);
+        });
+    } catch (error) {
+        console.error('Erreur lors du chargement des tâches :', error);
+    }
+}
+
+// Sauvegarder une tâche dans le backend
+async function saveTaskToBackend(taskValue, completed) {
+    try {
+        await fetch('php/tasks.php?action=create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ text: taskValue, completed }),
+        });
+    } catch (error) {
+        console.error('Erreur lors de la sauvegarde de la tâche :', error);
+    }
+}
+
+// Mettre à jour une tâche dans le backend
+async function updateTaskInBackend(taskValue, completed) {
+    try {
+        await fetch('php/tasks.php?action=update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ text: taskValue, completed }),
+        });
+    } catch (error) {
+        console.error('Erreur lors de la mise à jour de la tâche :', error);
+    }
+}
+
+// Supprimer une tâche dans le backend
+async function deleteTaskFromBackend(taskValue) {
+    try {
+        await fetch('php/tasks.php?action=delete', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ text: taskValue }),
+        });
+    } catch (error) {
+        console.error('Erreur lors de la suppression de la tâche :', error);
+    }
+}
+
 });
 
 // Fin Frontend
