@@ -42,6 +42,25 @@
   <!-- Bootstrap JS (optionnel pour des composants interactifs) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/assets/js/script.js"></script>
+  <script>
+    // Script principal pour intégrer les fonctionnalités
+    document.addEventListener('DOMContentLoaded', () => {
+      // Charger les tâches au démarrage
+      loadTasksFromBackend();
 
+      // Gestion du bouton de déconnexion
+      document.getElementById('logoutBtn').addEventListener('click', async () => {
+        const response = await fetch('php/auth.php?action=logout', { method: 'POST' });
+        const result = await response.json();
+
+        if (result.success) {
+          alert('Déconnexion réussie.');
+          window.location.href = '/login.html';
+        } else {
+          alert('Erreur lors de la déconnexion.');
+        }
+      });
+    });
+  </script>
 
 </html>
